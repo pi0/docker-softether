@@ -5,29 +5,42 @@ Fork image Available on [Docker Hub](https://registry.hub.docker.com/u/pooya/sof
 
 ## Download
 
-    docker pull pooya/softether
+```bash
+docker pull pooya/softether
+```
 
-## Run
+## Usage
 
-Simplest version:
+```bash
+docker run -d -net host --cap-add NET_ADMIN --name softether \
+    -v /etc/vpnserver:/etc/vpnserver \
+    -v /var/log/vpnserver:/var/log/vpnserver
+    pooya/softether
+```
 
-    docker run -d --net host --cap-add NET_ADMIN --name softether pooya/softether
+## docker-compose
 
-With external config file:
+```bash
+touch vpn_server.config
+```
 
-    touch /etc/vpnserver/vpn_server.config
-    docker run -d -v /etc/vpnserver/vpn_server.config:/usr/local/vpnserver/vpn_server.config \
-    --net host --cap-add NET_ADMIN --name softether pooya/softether
+```yaml
+version: '2'
 
-If you want to keep the logs in a data container:
+services: 
 
-    docker volume create --name softether-logs
-    docker run -d --net host --cap-add NET_ADMIN --name softether \
-    -v softether-logs:/var/log/vpnserver pooya/softether
-
-All together now:
-
-    touch /etc/vpnserver/vpn_server.config
-    docker volume create --name softether-logs
-    docker run -d -v /etc/vpnserver/vpn_server.config:/usr/local/vpnserver/vpn_server.config  -v softether-logs:/var/log/vpnserver --net host --cap-add NET_ADMIN --name softether pooya/softether
-
+  softether:
+    image: pooya/softether
+    volumes:
+      - ./data/softether/etc:/etc/vpnserver
+      - ./data/softether/log:/var/log/vpnserver
+    ports: 
+      - "992:992"
+      - "1194:1194/udp"
+      - "5555:5555"
+      - "500:500/udp"
+      - "4500:4500/udp"
+      - "1701:1701/udp"
+    network_mode: "bridge"
+    restart: always
+```
