@@ -1,7 +1,7 @@
 # Docker image for SoftEther VPN
 
 This will deploy a fully functional [SoftEther VPN](https://www.softether.org) server as a docker image.
-Fork image Available on [Docker Hub](https://registry.hub.docker.com/u/pooya/softether/).
+Fork image Available on [Docker Hub](https://hub.docker.com/u/pooya/softether/).
 
 ## Download
 
@@ -19,10 +19,6 @@ docker run -d -net host --cap-add NET_ADMIN --name softether \
 ```
 
 ## docker-compose
-
-```bash
-touch vpn_server.config
-```
 
 ```yaml
 version: '2'
