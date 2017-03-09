@@ -18,7 +18,7 @@ docker run -d -net host --cap-add NET_ADMIN --name softether \
     pooya/softether
 ```
 
-## docker-compose
+You may also use a **docker-compose.yml** file :
 
 ```yaml
 version: '2'
@@ -28,9 +28,11 @@ services:
     volumes:
       - ./data/softether/etc:/etc/vpnserver
       - ./data/softether/log:/var/log/vpnserver
-    network_mode: "host"
+    cap_add: [NET_ADMIN]
+    network_mode: host
     restart: always
 ```
-```bash
+Then:
+```sh
 docker-compose up -d
 ```
