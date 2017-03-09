@@ -22,21 +22,15 @@ docker run -d -net host --cap-add NET_ADMIN --name softether \
 
 ```yaml
 version: '2'
-
 services: 
-
   softether:
     image: pooya/softether
     volumes:
       - ./data/softether/etc:/etc/vpnserver
       - ./data/softether/log:/var/log/vpnserver
-    ports: 
-      - "992:992"
-      - "1194:1194/udp"
-      - "5555:5555"
-      - "500:500/udp"
-      - "4500:4500/udp"
-      - "1701:1701/udp"
-    network_mode: "bridge"
+    network_mode: "host"
     restart: always
+```
+```bash
+docker-compose up -d
 ```
