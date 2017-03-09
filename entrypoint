@@ -5,7 +5,12 @@ mkdir -p /var/log/vpnserver/security_log
 mkdir -p /var/log/vpnserver/packet_log
 mkdir -p /var/log/vpnserver/server_log
 
+# Softlink logs
 ln -s /var/log/vpnserver/*_log /usr/local/vpnserver/
+
+# Softlink config
+touch /etc/vpn_server.config
+ln -sfv /etc/vpn_server.config .
 
 exec /usr/local/vpnserver/vpnserver execsvc
 
